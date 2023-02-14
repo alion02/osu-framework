@@ -1,9 +1,12 @@
 // Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the MIT Licence.
 // See the LICENCE file in the repository root for full licence text.
 
+#nullable disable
+
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using JetBrains.Annotations;
 using osu.Framework.Bindables;
 using osu.Framework.Configuration;
 using RectangleF = osu.Framework.Graphics.Primitives.RectangleF;
@@ -39,22 +42,25 @@ namespace osu.Framework.Platform
         /// <summary>
         /// Invoked when the window close (X) button or another platform-native exit action has been pressed.
         /// </summary>
-        event Action? ExitRequested;
+        [CanBeNull]
+        event Action ExitRequested;
 
         /// <summary>
         /// Invoked when the <see cref="IWindow"/> has closed.
         /// </summary>
-        event Action? Exited;
+        [CanBeNull]
+        event Action Exited;
 
         /// <summary>
         /// Invoked when the <see cref="IWindow"/> client size has changed.
         /// </summary>
-        event Action? Resized;
+        [CanBeNull]
+        event Action Resized;
 
         /// <summary>
         /// Invoked when the system keyboard layout has changed.
         /// </summary>
-        event Action? KeymapChanged;
+        event Action KeymapChanged;
 
         /// <summary>
         /// Whether the OS cursor is currently contained within the game window.
@@ -117,7 +123,8 @@ namespace osu.Framework.Platform
         /// <summary>
         /// Invoked when <see cref="Displays"/> has changed.
         /// </summary>
-        event Action<IEnumerable<Display>>? DisplaysChanged;
+        [CanBeNull]
+        event Action<IEnumerable<Display>> DisplaysChanged;
 
         /// <summary>
         /// Gets the <see cref="Display"/> that has been set as "primary" or "default" in the operating system.
@@ -138,11 +145,6 @@ namespace osu.Framework.Platform
         /// Forcefully closes the window.
         /// </summary>
         void Close();
-
-        /// <summary>
-        /// Attempts to raise the window, bringing it above other windows and requesting input focus.
-        /// </summary>
-        void Raise();
 
         /// <summary>
         /// Start the window's run loop.
